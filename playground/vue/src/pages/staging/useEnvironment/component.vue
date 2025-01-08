@@ -65,9 +65,9 @@ const slotContent = useSlots().default;
 watch(() => slotContent && slotContent(), (value) => {
   if (value) {
     slots = value
-    extend({ EnvSence })
     if (Array.isArray(slots) && slots.length > 0) {
       if (typeof slots[0]?.type !== 'symbol') {
+        extend({ EnvSence })
         fbo.value = new WebGLCubeRenderTarget(props.resolution)
         fbo.value.texture.type = HalfFloatType
         cubeCamera = new CubeCamera(props.near, props.far, fbo.value)
@@ -91,6 +91,7 @@ onUnmounted(() => {
 
 <template>
   <TresEnvSence
+    v-if="fbo"
     ref="envSence"
   >
     <slot></slot>
